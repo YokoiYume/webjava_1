@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+
 <title>トップ画面</title>
 </head>
 <body>
-<h1>商品一覧</h1>
+	<h1>商品一覧</h1>
+
+	<!--controllerからオブジェクトをもらう。-->
+	<th:block th:each="okabe: ${ohage}">
+		<form method=post id="cartview" action="#" th:action="@{/userlist}" th:object="${watanabe}">
+			<!--Mapのvalueを表示させる。-->
+			<p class="name" th:text="${okabe.value.name}"></p>
+			<p class="price" th:text="${okabe.value.price}"></p>
+			<input type="hidden" name="itemid"class="itemId" th:value="${okabe.value.itemid}"/>
+
+			<button type="submit">カートに入れる</button>
+
+		</form>
+	</th:block>
 </body>
 </html>
