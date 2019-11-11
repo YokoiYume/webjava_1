@@ -10,12 +10,21 @@
 
 	<!--controllerからオブジェクトをもらう。-->
 	<th:block th:each="okabe: ${ohage}">
-		<form method=post id="cartview" action="#" th:action="@{/userlist}" th:object="${watanabe}">
+		<form method=post id="cartview" action="#" th:action="@{/userlist}"
+			th:object="${watanabe}">
 			<!--Mapのvalueを表示させる。-->
 			<p class="name" th:text="${okabe.value.name}"></p>
 			<p class="price" th:text="${okabe.value.price}"></p>
-			<input type="hidden" name="itemid"class="itemId" th:value="${okabe.value.itemid}"/>
+			<input type="hidden" name="itemid" class="itemId"
+				th:value="${okabe.value.itemid}" /> <select name="num">
+				<option value="1">1個</option>
+				<option value="2">2個</option>
+				<option value="3">3個</option>
+				<option value="4">4個</option>
+				<option value="5">5個</option>
+				<option value="6">6個</option>
 
+			</select>
 			<button type="submit">カートに入れる</button>
 
 		</form>

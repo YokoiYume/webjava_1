@@ -6,7 +6,13 @@
 </head>
 <body>
 <h1>カート中身</h1>
-<p class="name" th:text="${message.name}"></p>
+<!-- p class="name" th:text="${message.name}"></p-->
+<th:block th:each="okabe: ${cartView}">
+<p th:text="${okabe.itemId}"></p>
+<p th:text="${message.get(okabe.itemId).name}"></p>
+<p th:text="${message.get(okabe.itemId).price}"></p>
+<p th:text="${okabe.num}"></p>
+</th:block>
 
 <!--いつかプロパティに。。。  -->
  <a href="/ShopTop">

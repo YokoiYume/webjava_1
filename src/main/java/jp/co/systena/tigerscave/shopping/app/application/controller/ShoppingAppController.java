@@ -1,10 +1,7 @@
 package jp.co.systena.tigerscave.shopping.app.application.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,26 +42,31 @@ public class ShoppingAppController {
 	}
 
 	@RequestMapping(value = "/userlist", method = RequestMethod.POST)
-	public ModelAndView order(ModelAndView ord,@ModelAttribute ListForm form, Model model, HttpServletRequest request) {
-		
-		List<Order> carts = (List<Order>)session.getAttribute("orderList");
-	    if( carts == null) {
-	    	carts = new ArrayList<Order>();
-	        session.setAttribute("orderList",carts);
-	    }
-		session.getAttribute("message");
-		Item cartitem = ITEM.get(form.getItemid());
-		//model.addAttribute("message", cartitem);
+	public ModelAndView order(ModelAndView ord,@ModelAttribute ListForm form, Model model) {
+
+
+		Cart cart =(Cart)session.getAttribute("cartItem");
+		if(cart==null) {
+			cart = new Cart();
+			session.setAttribute("cartItem",cart);
+		}
+
+		Item item = ITEM.get(form.getItemid());
+		model.addAttribute("message", ITEM);
 		ord.setViewName("CartView");
 
 		Order order = new Order();
 		order.setItemId(form.getItemid());
-		Cart cart = new Cart();
-		cart.addOrder(order);
+		order.setNum(form.getNum());
+
+		cart.addOrder(form.getItemid(),form.getNum());
 		
 
-		session.setAttribute("cartList",cart);
-		
+
+		ord.addObject("cartView",cart.getOrderList());
+		session.setAttribute("cartItem",cart);
+
+
 		return ord;
 
 
